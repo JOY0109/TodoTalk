@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.todotalk.project.project.mapper.ProjectMapper;
-import com.todotalk.project.project.vo.ProjectVo;
+import com.todotalk.project.project.vo.ProjectsVo;
 
 @Service
 @Transactional
@@ -16,8 +16,8 @@ public class ProjectService {
 	@Autowired
 	ProjectMapper projectMappers;
 
-	public List<ProjectVo> findProject() {
-		List<ProjectVo> list = projectMappers.selectProject();
+	public List<ProjectsVo> findProject() {
+		List<ProjectsVo> list = projectMappers.selectProject();
 		return list;
 	}
 

@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.todotalk.project.project.vo.ProjectVo;
+import com.todotalk.project.project.vo.ProjectsVo;
 
 @Mapper
 public interface ProjectMapper {
 
-	List<ProjectVo> selectProject();
+	List<ProjectsVo> selectProject();
 
 }

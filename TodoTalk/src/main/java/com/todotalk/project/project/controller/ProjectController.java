@@ -8,18 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.todotalk.project.project.service.ProjectService;
-import com.todotalk.project.project.vo.ProjectVo;
+import com.todotalk.project.project.vo.ProjectsVo;
 
 @RestController
-@RequestMapping("/project")
 public class ProjectController {
 	
 	@Autowired
 	ProjectService projectService;
 	
 	@GetMapping("/list")
-	public List<ProjectVo> project() {
-		List<ProjectVo> list = projectService.findProject();
+	public List<ProjectsVo> project() {
+		List<ProjectsVo> list = projectService.findProject();
 		System.out.println(list.toString());
 		return list;
 	}
