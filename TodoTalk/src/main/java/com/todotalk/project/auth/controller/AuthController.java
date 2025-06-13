@@ -2,16 +2,16 @@ package com.todotalk.project.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.todotalk.project.auth.service.AuthService;
 import com.todotalk.project.auth.vo.LoginResultVo;
+import com.todotalk.project.user.vo.UsersVo;
 
 @Controller
 public class AuthController {
@@ -24,7 +24,7 @@ public class AuthController {
         return "auth/sign-in";
     }
 	
-	@PostMapping("/signUp")
+	@GetMapping("/signUp")
 	public String signUp() {
 		return "auth/sign-up";
 	}
@@ -38,6 +38,12 @@ public class AuthController {
 	    } else {
 	        return new LoginResultVo(false, "아이디 또는 비밀번호가 일치하지 않습니다.");
 	    }
+	}
+	
+	@PostMapping("/createAccount")
+	@ResponseBody
+	public void createAccount(@RequestBody UsersVo userVo) {
+		authService.createAccount(userVo);
 	}
 
 

@@ -10,5 +10,25 @@
 		 AND LOGIN_PW = #{password}
 	</select>
 	
+	<insert id="" parameterType="UsersVo">
+		INSERT INTO USERS (
+			   USER_ID
+			 , LOGIN_ID
+			 , LOGIN_PW
+			 , REAL_NAME
+			 , EMPLOYEE_NO
+			 , LOGIN_TIME
+			 , AUTH_ROLE
+		) VALUES(
+			  #{user.userId}
+			, #{user.loginId}
+			, #{user.loginPw}
+			, #{user.realName}
+			, #{user.employeeNo}
+			, #{user.loginTime}
+			, #{user.authRole}
+		)
+	</insert>
+	
 	
 </mapper>
