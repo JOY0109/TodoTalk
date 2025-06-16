@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/project")
 public class ProjectViewController {
 	
-	@GetMapping("/list")  // http://localhost:8080/ 으로 접속하면
+	@GetMapping("/list")
     public String home() {
-        return "project/project-view";  // home.html을 templates에서 찾아서 렌더링함
+        return "project/project-view";
     }
 
 }
