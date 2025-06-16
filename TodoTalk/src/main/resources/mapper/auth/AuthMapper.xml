@@ -10,7 +10,7 @@
 		 AND LOGIN_PW = #{password}
 	</select>
 	
-	<insert id="" parameterType="UsersVo">
+	<insert id="createAccount" parameterType="UsersVo">
 		INSERT INTO USERS (
 			   USER_ID
 			 , LOGIN_ID
@@ -25,7 +25,7 @@
 			, #{user.loginPw}
 			, #{user.realName}
 			, #{user.employeeNo}
-			, #{user.loginTime}
+			, NOW()
 			, #{user.authRole}
 		)
 	</insert>

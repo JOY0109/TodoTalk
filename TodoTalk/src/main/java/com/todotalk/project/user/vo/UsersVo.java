@@ -2,8 +2,6 @@ package com.todotalk.project.user.vo;
 
 import java.time.LocalDateTime;
 
-import com.todotalk.project.common.utiles.MakeUuid;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,9 +18,4 @@ public class UsersVo{
 	private Integer employeeNo;         //사번
 	private LocalDateTime loginTime;    //로그인시간
 	private String authRole;            //권한
-	
-	public UsersVo(){
-		this.userId = MakeUuid.generate();
-	}
-
 }

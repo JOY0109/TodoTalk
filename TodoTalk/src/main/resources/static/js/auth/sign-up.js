@@ -11,25 +11,25 @@ const KTSignupGeneral = (() => {
         const pwMeter = KTPasswordMeter.getInstance(form.querySelector('[data-kt-password-meter="true"]'));
         const validation = FormValidation.formValidation(form, {
             fields: {
-                "first-name": {
+                "name": {
                     validators: {
-                        notEmpty: { message: "First Name is required" }
+                        notEmpty: { message: "이름을 입력해 주세요" }
                     }
                 },
-                "last-name": {
+                "employeeNo": {
                     validators: {
-                        notEmpty: { message: "Last Name is required" }
+                        notEmpty: { message: "사번을 입력해 주세요" },
+						digits: { message: "숫자만 입력해 주세요" }
                     }
                 },
-                email: {
+                "id": {
                     validators: {
-                        notEmpty: { message: "Email address is required" },
-                        emailAddress: { message: "The value is not a valid email address" }
+                        notEmpty: { message: "아이디를 입력해 주세요" }
                     }
                 },
-                password: {
+                "password": {
                     validators: {
-                        notEmpty: { message: "The password is required" },
+                        notEmpty: { message: "비밀번호를 입력해 주세요" },
                         callback: {
                             message: "Please enter valid password",
                             callback: ({ value }) => value.length > 0 ? isPasswordStrong(pwMeter) : false
@@ -38,7 +38,7 @@ const KTSignupGeneral = (() => {
                 },
                 "confirm-password": {
                     validators: {
-                        notEmpty: { message: "The password confirmation is required" },
+                        notEmpty: { message: "비밀번호 확인을 입력해 주세요" },
                         identical: {
                             compare: () => form.querySelector('[name="password"]').value,
                             message: "The password and its confirm are not the same"
@@ -47,7 +47,7 @@ const KTSignupGeneral = (() => {
                 },
                 toc: {
                     validators: {
-                        notEmpty: { message: "You must accept the terms and conditions" }
+                        notEmpty: { message: "약관에 동의해 주세요" }
                     }
                 }
             },
@@ -72,10 +72,11 @@ const KTSignupGeneral = (() => {
             if (status === "Valid") {
                 // 값 수집
                 const userData = {
-                    userId: form.querySelector('[name="first-name"]').value,
-                    loginId: form.querySelector('[name="last-name"]').value,
-                    loginPw: form.querySelector('[name="email"]').value,
-                    realName: form.querySelector('[name="password"]').value,
+                    realName: form.querySelector('[name="name"]').value,
+                    employeeNo: form.querySelector('[name="employeeNo"]').value,
+                    authRole: form.querySelector('[name="authRole"]').value,
+                    loginId: form.querySelector('[name="id"]').value,
+                    loginPw: form.querySelector('[name="password"]').value,
                 };
 
                 try {
