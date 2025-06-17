@@ -23,8 +23,4 @@ public class ProjectsVo {
 	private String updatedBy;                   //수정자
 	private LocalDateTime updatedAt;            //수정일시
 	
-	public ProjectsVo() {
-        this.projectId = MakeUuid.generate(); // 하이픈 포함
-    }
-
 }

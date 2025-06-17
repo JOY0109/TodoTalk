@@ -18,7 +18,7 @@ public class AuthService {
 	/**
 	 * @설명:   로그인
 	 * @작성일: 2025. 6. 16.
-	 * @return: int
+	 * @return: int : users 테이블
 	 */
 	public int checkUser(String userId, String password) {
 		return authMapper.checkUser(userId,password);
@@ -27,7 +27,6 @@ public class AuthService {
 	/**
 	 * @설명:   계정생성
 	 * @작성일: 2025. 6. 16.
-	 * @return: void
 	 */
 	public void createAccount(UsersVo userVo) {
 		userVo.setUserId(MakeUuid.generateNoDash());

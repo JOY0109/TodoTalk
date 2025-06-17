@@ -4,10 +4,23 @@
 <mapper namespace="com.todotalk.project.project.mapper.ProjectMapper">
 
     <select id="selectProject" resultType="ProjectsVo">
-       SELECT PROJECT_ID as projectId
-		      ,PROJECT_NAME as projectName
-		FROM PROJECTS
-
+       SELECT PROJECT_ID			as projectId		
+			, PROJECT_NAME          as projectName      
+			, PROJECT_START_DATE    as projectStartDate 
+			, PROJECT_END_DATE      as projectEndDate   
+			, PROJECT_STATUS        as projectStatus    
+			, u.REAL_NAME           as createdBy        
+			, CREATED_AT            as createdAt        
+			, UPDATED_BY            as updatedBy        
+			, UPDATED_AT            as updatedAt        
+		 FROM PROJECTS prj
+		 JOIN USERS u ON u.USER_ID = prj.CREATED_BY
     </select>
+    
+    <insert id="createProject" parameterType="ProjectsVo">
+    </insert>
+    
+    <insert id="addProjectMember" parameterType="ProjectMembersVo">
+    </insert>
 
 </mapper>

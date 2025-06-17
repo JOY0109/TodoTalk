@@ -22,8 +22,4 @@ public class ProjectMembersVo {
 	private LocalDateTime joinedAt;     //프로젝트 참여 일
 	private LocalDateTime endedAt;      //프로젝트 참여 만료일
 	
-	public ProjectMembersVo() {
-		this.projectMemberId = MakeUuid.generate();
-	}
-
 }

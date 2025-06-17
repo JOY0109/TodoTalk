@@ -1,6 +1,7 @@
 package com.todotalk.project.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,8 +63,12 @@ public class AuthController {
 	 */
 	@PostMapping("/createAccount")
 	@ResponseBody
-	public void createAccount(@RequestBody UsersVo userVo) {
+	public ResponseEntity<Void> createAccount(@RequestBody UsersVo userVo) {
+		if(userVo == null) {
+			return ResponseEntity.badRequest().build();  // 400 Bad Request
+		}
 		authService.createAccount(userVo);
+		return ResponseEntity.ok().build();              // 200 OK
 	}
 
 
