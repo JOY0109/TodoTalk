@@ -42,7 +42,7 @@ public class ProjectService {
 		prjVo.setProjectId(projectId);
 		projectMappers.createProject(prjVo);
 		
-		if (prjMem != null) {//초기에 등록 안 할 수 있음
+		if (prjMem != null && prjMem.getProjectMemberId() != null) {//초기에 등록 안 할 수 있음
 	        prjMem.setProjectId(projectId);
 	        prjMem.setProjectMemberId(projectMemberId);
 	        projectMappers.addProjectMember(prjMem);

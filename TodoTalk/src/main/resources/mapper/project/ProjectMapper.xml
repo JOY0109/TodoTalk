@@ -15,12 +15,53 @@
 			, UPDATED_AT            as updatedAt        
 		 FROM PROJECTS prj
 		 JOIN USERS u ON u.USER_ID = prj.CREATED_BY
+		 ORDER BY CREATED_AT,PROJECT_START_DATE,PROJECT_END_DATE
     </select>
     
     <insert id="createProject" parameterType="ProjectsVo">
+    	INSERT INTO PROJECTS (
+			   PROJECT_ID
+			 , PROJECT_NAME
+			 , PROJECT_START_DATE
+			 , PROJECT_END_DATE
+			 , PROJECT_STATUS
+			 , CREATED_BY
+			 , CREATED_AT
+			 , UPDATED_BY
+			 , UPDATED_AT
+		) VALUES(
+			   #{prjVo.projectId}
+			 , #{prjVo.projectName}
+			 , #{prjVo.projectStartDate}
+			 , #{prjVo.projectEndDate}
+			 , #{prjVo.projectStatus}
+			 , #{prjVo.createdBy}
+			 , NOW()
+			 , #{prjVo.updatedBy}
+			 , NOW()
+		)
     </insert>
     
     <insert id="addProjectMember" parameterType="ProjectMembersVo">
+    	INSERT INTO PROJECT_MEMBERS (
+			   PROJECT_MEMBER_ID
+			 , PROJECT_ID
+			 , USER_ID
+			 , DEPARTMENT_ID
+			 , TEAM_ID
+			 , IS_PM
+			 , JOINED_AT
+			 , ENDED_AT
+		) VALUES(
+			   #{prjMem.projectMemberId}
+			 , #{prjMem.projectId}
+			 , #{prjMem.userId}
+			 , #{prjMem.departmentId}
+			 , #{prjMem.teamId}
+			 , #{prjMem.isPm}
+			 , #{prjMem.joinedAt}
+			 , #{prjMem.endedAt}
+		)
     </insert>
 
 </mapper>

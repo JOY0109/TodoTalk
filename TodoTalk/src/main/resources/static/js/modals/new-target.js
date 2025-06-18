@@ -14,21 +14,21 @@ var KTModalNewTarget = (function () {
       t = document.getElementById("kt_modal_new_target_submit");
       e = document.getElementById("kt_modal_new_target_cancel");
 
-      new Tagify(a.querySelector('[name="tags"]'), {
-        whitelist: ["Important", "Urgent", "High", "Medium", "Low"],
-        maxTags: 5,
-        dropdown: {
-          maxItems: 10,
-          enabled: 0,
-          closeOnSelect: !1
-        }
-      }).on("change", function () {
-        n.revalidateField("tags");
+      $(a.querySelector('[name="start_date"]')).flatpickr({
+			enableTime: true,
+			time_24hr: true,
+			dateFormat: "Y-m-d H:i:S",  // ← MySQL DATETIME 형식
+			altInput: true,
+			altFormat: "Y-m-d H:i",     // 사용자에게 보이는 형식
+			locale: "ko"         
       });
-
-      $(a.querySelector('[name="due_date"]')).flatpickr({
-        enableTime: !0,
-        dateFormat: "d, M Y, H:i"
+      $(a.querySelector('[name="end_date"]')).flatpickr({
+			enableTime: true,
+			time_24hr: true,
+			dateFormat: "Y-m-d H:i:S",
+			altInput: true,
+			altFormat: "Y-m-d H:i",
+			locale: "ko"         
       });
 
       $(a.querySelector('[name="team_assign"]')).on("change", function () {
@@ -40,38 +40,24 @@ var KTModalNewTarget = (function () {
           target_title: {
             validators: {
               notEmpty: {
-                message: "Target title is required"
+                message: "필수입력"
               }
             }
           },
-          target_assign: {
+          start_date: {
             validators: {
               notEmpty: {
-                message: "Target assign is required"
+                message: "필수입력"
               }
             }
           },
-          target_due_date: {
+          end_date: {
             validators: {
               notEmpty: {
-                message: "Target due date is required"
+                message: "필수입력"
               }
             }
           },
-          target_tags: {
-            validators: {
-              notEmpty: {
-                message: "Target tags are required"
-              }
-            }
-          },
-          "targets_notifications[]": {
-            validators: {
-              notEmpty: {
-                message: "Please select at least one communication method"
-              }
-            }
-          }
         },
         plugins: {
           trigger: new FormValidation.plugins.Trigger(),
@@ -90,70 +76,82 @@ var KTModalNewTarget = (function () {
 
         n.validate().then(function (result) {
           console.log("validated!");
-          if (result === "Valid") {
-            t.setAttribute("data-kt-indicator", "on");
-            t.disabled = !0;
+		  if (result === "Valid") {
 
-            setTimeout(function () {
-              t.removeAttribute("data-kt-indicator");
-              t.disabled = !1;
+		    /* ---------- ① 폼 값 꺼내기 ---------- */
+		    const title      = a.querySelector('[name="target_title"]').value.trim();
+		    const status   = a.querySelector('[name="status"]').value;
+		    const startDate = a.querySelector('[name="start_date"]').value; 
+		    const endDate = a.querySelector('[name="end_date"]').value;
 
-              Swal.fire({
-                text: "Form has been successfully submitted!",
-                icon: "success",
-                buttonsStyling: !1,
-                confirmButtonText: "Ok, got it!",
-                customClass: {
-                  confirmButton: "btn btn-primary"
-                }
-              }).then(function (swalResult) {
-                if (swalResult.isConfirmed) o.hide();
-              });
-            }, 2000);
-          } else {
-            Swal.fire({
-              text: "Sorry, looks like there are some errors detected, please try again.",
-              icon: "error",
-              buttonsStyling: !1,
-              confirmButtonText: "Ok, got it!",
-              customClass: {
-                confirmButton: "btn btn-primary"
-              }
-            });
-          }
+			const startDateISO = startDate ? dayjs(startDate, "YYYY-MM-DD HH:mm").toISOString() : null;
+			const endDateISO = endDate ? dayjs(endDate, "YYYY-MM-DD HH:mm").toISOString() : null;
+
+
+		    /* ---------- ② ProjectPayloadVo 형태로 조립 ---------- */
+		    const payload = {
+		      project: {
+		        projectName      : title,
+		        projectStatus    : status,         // 기본 진행중
+		        projectStartDate : startDateISO, // 오늘
+		        projectEndDate   : endDateISO,
+		        createdBy        : 'e5cc7cf1-7aaf-47ea-b91d-2d2bb56db2b4'
+		      },
+		      member: {
+		      }
+		    };
+
+		    /* ---------- ③ 서버로 전송 ---------- */
+		    t.setAttribute("data-kt-indicator", "on");
+		    t.disabled = true;
+
+		    fetch("/loadProjectData/createProject", {
+		      method  : "POST",
+		      headers : { "Content-Type": "application/json" },
+		      body    : JSON.stringify(payload)
+		    })
+		    .then(res => {
+		        if (!res.ok) throw new Error("fail");
+		        return res;
+		    })
+		    .then(() => {
+		        t.removeAttribute("data-kt-indicator");
+		        t.disabled = false;
+
+		        Swal.fire({
+		          text: "프로젝트가 등록되었습니다!",
+		          icon: "success",
+		          buttonsStyling: false,
+		          confirmButtonText: "확인",
+		          customClass: { confirmButton: "btn btn-primary" }
+		        }).then(() => {
+		          o.hide();          // 모달 닫기
+		          a.reset();         // 폼 초기화
+				  location.reload(); 
+		        });
+		    })
+		    .catch(() => {
+		        t.removeAttribute("data-kt-indicator");
+		        t.disabled = false;
+
+		        Swal.fire({
+		          text: "저장 중 오류가 발생했습니다. 다시 시도해주세요.",
+		          icon: "error",
+		          buttonsStyling: false,
+		          confirmButtonText: "확인",
+		          customClass: { confirmButton: "btn btn-primary" }
+		        });
+		    });
+		    
+		  }
+
         });
       });
 
       e.addEventListener("click", function (t) {
         t.preventDefault();
-
-        Swal.fire({
-          text: "Are you sure you would like to cancel?",
-          icon: "warning",
-          showCancelButton: !0,
-          buttonsStyling: !1,
-          confirmButtonText: "Yes, cancel it!",
-          cancelButtonText: "No, return",
-          customClass: {
-            confirmButton: "btn btn-primary",
-            cancelButton: "btn btn-active-light"
-          }
-        }).then(function (result) {
-          if (result.value) {
-            a.reset();
-            o.hide();
-          } else if (result.dismiss === "cancel") {
-            Swal.fire({
-              text: "Your form has not been cancelled!.",
-              icon: "error",
-              buttonsStyling: !1,
-              confirmButtonText: "Ok, got it!",
-              customClass: {
-                confirmButton: "btn btn-primary"
-              }
-            });
-          }
-        });
+		a.reset();
+		o.hide();
       });
     }
   };

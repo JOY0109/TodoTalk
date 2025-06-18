@@ -74,7 +74,7 @@
 												<!--end::Select2-->
 											</div>
 											<!--begin::Add product-->
-											<a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-primary">프로젝트 등록</a>
+											<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">프로젝트 생성</a>
 											<!--end::Add product-->
 										</div>
 										<!--end::Card toolbar-->
@@ -105,7 +105,7 @@
 													       <a class="text-gray-800 text-hover-primary fs-5 fw-bolder" href="/project/detail"></a>
 													    </td>
 													    <td class="text-center pe-0" data-order="Refunded">
-													     	<div class="badge badge-light-info"></div>
+													     	<div class="badge badge-light-primary"></div>
 													    </td>
 														<td  class="text-center pe-0">
 															<span class="fw-bolder"></span>
@@ -134,6 +134,10 @@
 					<!--begin::Footer-->
 					<div th:replace="common/footer.html :: footer"></div>
 					<!--end::Footer-->
+					<!--begin::Modal - Create Project 프로젝트 생성 모달 new-target.js-->
+					<div th:replace="modal/target-project.html :: target-project"></div>
+					<!--<div th:replace="modal/creat-project.html :: creat-project"></div>-->
+					<!--end::Modal - Create Project-->
 				</div>
 			</div>
 		</div>
@@ -146,9 +150,13 @@
 		<script src="/js/modals/upgrade-plan.js"></script>
 		<script src="/js/modals/create-app.js"></script>
 		<script src="/js/modals/users-search.js"></script>
+		<script src="/js/modals/new-target.js"></script>
 		<script src="/js/project/listing.js"></script>
+		<script src="/js/project/project.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/customParseFormat.js"></script>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
