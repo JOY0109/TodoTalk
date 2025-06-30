@@ -25,22 +25,6 @@
 								<a href="/" class="link-primary fw-bolder">여기서 로그인하세요</a></div>
 							</div>
 							<div class="fv-row mb-7">
-								<label class="form-label fw-bolder text-dark fs-6">이름(실명)</label>
-								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="name" autocomplete="off" />
-							</div>
-							<div class="fv-row mb-7">
-								<label class="form-label fw-bolder text-dark fs-6">사번/권한</label>
-								<div class="d-flex gap-3 mt-2">
-									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="employeeNo" autocomplete="off" />
-									<select name="authRole" data-control="select2" data-hide-search="true" class="bg-gray-100 form-select form-select-lg border-body ">
-								      <option value="EMP" selected="selected">일반</option>
-								      <option value="LEAD">PM/PL</option>
-								      <option value="QA">품질관리</option>
-								      <option value="HR">인사</option>
-								    </select>
-								</div>
-							</div>
-							<div class="fv-row mb-7">
 								<label class="form-label fw-bolder text-dark fs-6">아이디</label>
 								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="id" autocomplete="off" />
 							</div>
@@ -68,6 +52,61 @@
 							<div class="fv-row mb-5">
 								<label class="form-label fw-bolder text-dark fs-6">비밀번호확인</label>
 								<input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="confirm-password" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">이름(실명)</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="name" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">사번/권한</label>
+								<div class="d-flex gap-3 mt-2">
+									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="employeeNo" autocomplete="off" />
+									<select name="authRole" data-control="select2" data-hide-search="true" class="bg-gray-100 form-select form-select-lg border-body ">
+								      <option value="EMP" selected="selected">일반</option>
+								      <option value="LEAD">PM/PL</option>
+								      <option value="QA">품질관리</option>
+								      <option value="HR">인사</option>
+								    </select>
+								</div>
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">부서/팀</label>
+								<div class="d-flex gap-3 mt-2">
+									<select name="departments" data-control="" data-hide-search="true" class="bg-gray-100 form-select form-select-lg border-body ">
+								      <option value="" selected="selected">부서 선택</option>
+								    </select>
+									<select name="teams" data-control="select2" data-hide-search="true" class="bg-gray-100 form-select form-select-lg border-body ">
+								      <option value="" selected="selected">팀 선택</option>
+								    </select>
+								</div>
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">직급</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="position" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">전화번호</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="office_phone" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">휴대전화전호</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="mobile_phone" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">주소</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="address" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">성별</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="gender" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">생일</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="birth_date" autocomplete="off" />
+							</div>
+							<div class="fv-row mb-7">
+								<label class="form-label fw-bolder text-dark fs-6">입사일</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="hire_date" autocomplete="off" />
 							</div>
 							<div class="fv-row mb-10">
 								<label class="form-check form-check-custom form-check-solid form-check-inline">

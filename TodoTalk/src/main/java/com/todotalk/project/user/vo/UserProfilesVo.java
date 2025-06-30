@@ -24,8 +24,5 @@ public class UserProfilesVo {
 	private Integer hireDate;               //입사일
 	private String status;                  //상태(01 : 재직/ 02 : 출산휴가 / 03 : 퇴사 / 04 : 병가 / 05 : 기타)
 	private LocalDateTime statusUpdateDate; //상태변경일자
-	
-	public UserProfilesVo(){
-		this.userProfilesId = MakeUuid.generate();
-	}
+
 }

@@ -17,8 +17,5 @@ public class DepartmentsVo {
 	private String departmentCode;          //부서코드
 	private String departmentName;          //부서명
 	private String departmentDescription;   //부서비고
-	
-	public DepartmentsVo(){
-		this.departmentId = MakeUuid.generate();
-	}
+
 }

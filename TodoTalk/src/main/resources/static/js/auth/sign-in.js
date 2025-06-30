@@ -32,8 +32,63 @@ const KTSigninGeneral = (() => {
         })
       }
     });
+	
+	submitBtn.addEventListener("click", async event => {
+	  event.preventDefault();
 
-    submitBtn.addEventListener("click", async event => {
+	  submitBtn.disabled = true;
+	  submitBtn.setAttribute("data-kt-indicator", "on");
+
+	  const status = await validation.validate();
+	  if (status === "Valid") {
+	    const userId = form.querySelector('[name="userId"]').value;
+	    const password = form.querySelector('[name="password"]').value;
+
+	    try {
+	      const response = await fetch('/login-process', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+	        body: `userId=${encodeURIComponent(userId)}&password=${encodeURIComponent(password)}`
+	      });
+
+	      if (response.redirected) {
+	        // 로그인 성공 → Security가 리다이렉트 응답 → 이동 처리
+	        window.location.href = response.url;
+	      } else {
+	        // 로그인 실패 → 보통 /?error=true 로 리다이렉트 안 되고 남음
+	        Swal.fire({
+	          text: "아이디 또는 비밀번호가 올바르지 않습니다.",
+	          icon: "error",
+	          buttonsStyling: false,
+	          confirmButtonText: "확인",
+	          customClass: { confirmButton: "btn btn-primary" }
+	        });
+	      }
+	    } catch {
+	      Swal.fire({
+	        text: "서버 오류가 발생했습니다.",
+	        icon: "error",
+	        buttonsStyling: false,
+	        confirmButtonText: "확인",
+	        customClass: { confirmButton: "btn btn-primary" }
+	      });
+	    }
+	  } else {
+	    Swal.fire({
+	      text: "입력 값을 확인하세요.",
+	      icon: "warning",
+	      buttonsStyling: false,
+	      confirmButtonText: "확인",
+	      customClass: { confirmButton: "btn btn-primary" }
+	    });
+	  }
+
+	  submitBtn.disabled = false;
+	  submitBtn.removeAttribute("data-kt-indicator");
+	});
+
+
+/*    submitBtn.addEventListener("click", async event => {
       event.preventDefault();
 
       // 버튼 비활성화 + 로딩 인디케이터 표시
@@ -51,6 +106,12 @@ const KTSigninGeneral = (() => {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `userId=${encodeURIComponent(userId)}&password=${encodeURIComponent(password)}`
           });
+		  const response = await fetch('/login-process', {
+		    method: 'POST',
+		    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		    body: `userId=${encodeURIComponent(userId)}&password=${encodeURIComponent(password)}`
+		  });
+
           const data = await response.json();
 
           if (data.success) {
@@ -86,7 +147,7 @@ const KTSigninGeneral = (() => {
       // 버튼 재활성화 + 로딩 인디케이터 해제
       submitBtn.disabled = false;
       submitBtn.removeAttribute("data-kt-indicator");
-    });
+    });*/
   };
 
   return { init };

@@ -18,8 +18,4 @@ public class TeamsVo {
 	private String teamCode;        //팀코드
 	private String teamName;        //팀명
 	private String teamDescription; //팀 비고
-	
-	public TeamsVo(){
-		this.teamId = MakeUuid.generate();
-	}
 }

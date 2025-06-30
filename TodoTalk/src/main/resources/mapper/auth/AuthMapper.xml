@@ -3,6 +3,23 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.todotalk.project.auth.mapper.AuthMapper">
 
+	<resultMap id="UserPayload" type="UserPayloadVo">
+	 <association property="team" javaType="TeamsVo">
+	    <id property="teamId" column="teamId"/>
+	    <result property="teamCode" column="teamCode"/>
+	    <result property="teamName" column="teamName"/>
+	    <result property="teamDescription" column="teamDescription"/>
+	    <result property="departmentId" column="departmentId"/>
+	  </association>
+	  <association property="department" javaType="DepartmentsVo">
+	    <id property="departmentId" column="departmentId"/>
+	    <result property="departmentCode" column="departmentCode"/>
+	    <result property="departmentName" column="departmentName"/>
+	    <result property="departmentDescription" column="departmentDescription"/>
+	  </association>
+	</resultMap>
+
+
 	<select id="checkUser" resultType="int">
 	  SELECT COUNT(*)
 		FROM USERS 
@@ -10,7 +27,41 @@
 		 AND LOGIN_PW = #{password}
 	</select>
 	
-	<insert id="createAccount" parameterType="UsersVo">
+	<select id="findByUserId" resultType="UsersVo">
+	  SELECT USER_ID	  as userId
+		   , LOGIN_ID     as loginId
+		   , LOGIN_PW     as loginPw
+		   , REAL_NAME    as realName
+		   , EMPLOYEE_NO  as employeeNo
+		   , LOGIN_TIME   as loginTime
+		   , AUTH_ROLE    as authRole
+	    FROM USERS
+	   WHERE LOGIN_ID = #{userId}
+	</select>
+	
+	<select id="selectDep" resultType="DepartmentsVo">
+		SELECT DEPARTMENT_ID			as departmentId
+			 , DEPARTMENT_CODE          as departmentCode
+			 , DEPARTMENT_NAME          as departmentName
+			 , DEPARTMENT_DESCRIPTION   as departmentDescription
+		FROM DEPARTMENTS
+	</select>
+	
+	<select id="selectTeam" resultMap="UserPayload">
+		SELECT dep.DEPARTMENT_ID		as departmentId
+			 , DEPARTMENT_CODE          as departmentCode
+			 , DEPARTMENT_NAME          as departmentName
+			 , DEPARTMENT_DESCRIPTION   as departmentDescription
+			 , TEAM_ID                  as teamId
+			 , TEAM_CODE                as teamCode
+			 , TEAM_NAME                as teamName
+			 , TEAM_DESCRIPTION         as teamDescription
+	  FROM DEPARTMENTS dep 
+	  JOIN TEAMS t ON dep.DEPARTMENT_ID = t.DEPARTMENT_ID
+	 WHERE dep.DEPARTMENT_ID = #{departmentId}
+	</select>
+	
+	<insert id="createAccountUser" parameterType="UsersVo">
 		INSERT INTO USERS (
 			   USER_ID
 			 , LOGIN_ID
@@ -27,6 +78,48 @@
 			, #{user.employeeNo}
 			, NOW()
 			, #{user.authRole}
+		)
+	</insert>
+	
+	<insert id="createAccountUserPro" parameterType="UserProfilesVo">
+		INSERT INTO USER_PROFILES (
+			   USER_PROFILES_ID
+			 , USER_ID
+			 , `POSITION`
+			 , OFFICE_PHONE
+			 , MOBILE_PHONE
+			 , ADDRESS
+			 , GENDER
+			 , BIRTH_DATE
+			 , HIRE_DATE
+			 , STATUS
+			 , STATUS_UPDATE_DATE
+		) VALUES(
+			  #{userPro.userProfilesId} 
+			, #{userPro.userId}
+			, #{userPro.position}
+			, #{userPro.officePhone}
+			, #{userPro.mobilePhone}
+			, #{userPro.address}
+			, #{userPro.gender}
+			, #{userPro.birthDate}
+		    , #{userPro.hireDate}
+		    , #{userPro.status}
+		    , NOW()
+		)
+	</insert>
+	
+	<insert id="createAccountUserOrg" parameterType="UserOrgsVo">
+		INSERT INTO USER_ORGS(
+			   USER_ORG_ID
+			 , USER_ID
+			 , DEPARTMENT_ID
+			 , TEAM_ID
+		) VALUES(
+			  #{userOrg.userORgId}
+			, #{userOrg.userId}
+			, #{userOrg.departmentId}
+			, #{userOrg.teamId}
 		)
 	</insert>
 	

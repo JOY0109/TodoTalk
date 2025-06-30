@@ -18,7 +18,4 @@ public class UserOrgsVo {
 	private String departmentId;    //부서ID
 	private String teamId;          //팀ID\
 	
-	public UserOrgsVo(){
-		this.userORgId = MakeUuid.generate();
-	}
 }
