@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.todotalk.project.project.vo.ProjectMembersVo;
 import com.todotalk.project.project.vo.ProjectPayloadVo;
 import com.todotalk.project.project.vo.ProjectsVo;
+import com.todotalk.project.user.vo.UserPayloadVo;
 
 @Mapper
 public interface ProjectMapper {
@@ -17,6 +18,10 @@ public interface ProjectMapper {
 	void createProject(@Param("prjVo") ProjectsVo prjVo);
 
 	void addProjectMember(@Param("prjMem") ProjectMembersVo prjMem);
+
+	List<UserPayloadVo> findMembers();
+
+	List<ProjectPayloadVo> findMembers(@Param("projectId") String id);
 
 
 }

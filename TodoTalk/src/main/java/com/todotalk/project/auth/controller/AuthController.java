@@ -22,22 +22,6 @@ public class AuthController {
 
 	@Autowired
 	AuthService authService;
-
-	/**
-	 * @설명:   로그인
-	 * @작성일: 2025. 6. 16.
-	 * @return: LoginResultVo
-	 */
-//	@PostMapping("/checkUser")
-//	@ResponseBody
-//	public LoginResultVo checkUser(@RequestParam String userId, @RequestParam String password) {
-//	    int checkUser = authService.checkUser(userId, password);
-//	    if (checkUser == 1) {
-//	        return new LoginResultVo(true, "로그인 성공!");
-//	    } else {
-//	        return new LoginResultVo(false, "아이디 또는 비밀번호가 일치하지 않습니다.");
-//	    }
-//	}
 	
 	/**
 	 * @설명:   계정생성

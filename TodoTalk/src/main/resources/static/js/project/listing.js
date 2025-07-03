@@ -25,7 +25,8 @@ const KTAppEcommerceSalesListing = (() => {
           // 프로젝트명
           const link = clone.querySelector('a.text-gray-800');
           link.textContent = project.projectName;
-          link.href = `/project/detail/${project.projectId}`;
+		  link.href = `/project/detail?projectId=${project.projectId}`;
+          //link.href = `/project/detail/${project.projectId}`;
 
           // 상태 (한글로 표시, 코드 숨김 포함)
           const badge = clone.querySelector('.badge');

@@ -23,19 +23,12 @@ public class AuthService {
 
 	@Autowired
 	AuthMapper authMapper;
+	
 	@Autowired
     public AuthService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
-	/**
-	 * @설명:   로그인
-	 * @작성일: 2025. 6. 16.
-	 * @return: int : users 테이블
-	 */
-//	public int checkUser(String userId, String password) {
-//		return authMapper.checkUser(userId,password);
-//	}
 	
 	/**
 	 * @설명:   계정생성

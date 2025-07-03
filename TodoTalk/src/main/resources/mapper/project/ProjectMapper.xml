@@ -3,6 +3,141 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.todotalk.project.project.mapper.ProjectMapper">
 
+	<resultMap id="UserPayload" type="UserPayloadVo">
+		<association property="user" javaType="UsersVo">
+			<result property="userId" column="userId"/>
+			<result property="loginId" column="loginId"/>
+			<result property="loginPw" column="loginPw"/>
+			<result property="realName" column="realName"/>
+			<result property="employeeNo" column="employeeNo"/>
+			<result property="loginTime" column="loginTime"/>
+			<result property="authRole" column="authRole"/>
+		</association>
+		<association property="userPro" javaType="UserProfilesVo">
+			<result property="userProfilesId" column="userProfilesId"/>
+			<result property="userId" column="userId"/>
+			<result property="position" column="position"/>
+			<result property="officePhone" column="officePhone"/>
+			<result property="mobilePhone" column="mobilePhone"/>
+			<result property="address" column="address"/>
+			<result property="gender" column="gender"/>
+			<result property="birthDate" column="birthDate"/>
+			<result property="hireDate" column="hireDate"/>
+			<result property="status" column="status"/>
+			<result property="statusUpdateDate" column="statusUpdateDate"/>
+		</association>
+		<association property="team" javaType="TeamsVo">
+			<result property="teamId" column="teamId"/>
+		    <result property="teamCode" column="teamCode"/>
+		    <result property="teamName" column="teamName"/>
+		    <result property="teamDescription" column="teamDescription"/>
+		    <result property="departmentId" column="departmentId"/>
+		</association>
+		<association property="department" javaType="DepartmentsVo">
+			<result property="departmentId" column="departmentId"/>
+		    <result property="departmentCode" column="departmentCode"/>
+		    <result property="departmentName" column="departmentName"/>
+		    <result property="departmentDescription" column="departmentDescription"/>
+		</association>
+	</resultMap>
+	<resultMap id="findMembers" type="UserPayloadVo">
+		<association property="user" javaType="UsersVo">
+			<result property="userId" column="userId"/>
+			<result property="realName" column="realName"/>
+			<result property="employeeNo" column="employeeNo"/>
+		</association>
+		<association property="userPro" javaType="UserProfilesVo">
+			<result property="position" column="position"/>
+		</association>
+		<association property="team" javaType="TeamsVo">
+			<result property="teamId" column="teamId"/>
+		    <result property="teamName" column="teamName"/>
+		</association>
+		<association property="department" javaType="DepartmentsVo">
+			<result property="departmentId" column="departmentId"/>
+		    <result property="departmentName" column="departmentName"/>
+		</association>
+	</resultMap>
+	
+		 <!-- 프로젝트 정보 -->
+	  <resultMap id="ProjectResultMap" type="ProjectsVo">
+	    <id property="projectId" column="PROJECT_ID"/>
+	    <result property="projectName" column="PROJECT_NAME"/>
+	    <result property="projectStartDate" column="PROJECT_START_DATE"/>
+	    <result property="projectEndDate" column="PROJECT_END_DATE"/>
+	    <result property="projectStatus" column="PROJECT_STATUS"/>
+	    <result property="createdBy" column="CREATED_BY"/>
+	    <result property="createdAt" column="CREATED_AT"/>
+	    <result property="updatedBy" column="UPDATED_BY"/>
+	    <result property="updatedAt" column="UPDATED_AT"/>
+	  </resultMap>
+	
+	  <!-- 프로젝트 참여자 -->
+	  <resultMap id="ProjectMemberResultMap" type="ProjectMembersVo">
+	    <id property="projectMemberId" column="PROJECT_MEMBER_ID"/>
+	    <result property="projectId" column="PROJECT_ID"/>
+	    <result property="userId" column="USER_ID"/>
+	    <result property="departmentId" column="DEPARTMENT_ID"/>
+	    <result property="teamId" column="TEAM_ID"/>
+	    <result property="isPm" column="IS_PM"/>
+	    <result property="joinedAt" column="JOINED_AT"/>
+	    <result property="endedAt" column="ENDED_AT"/>
+	  </resultMap>
+	
+	  <!-- 유저 정보 묶음 -->
+	  <resultMap id="UserPayloadMap" type="UserPayloadVo">
+	    <association property="user" javaType="UsersVo">
+	      <id property="userId" column="USER_ID"/>
+	      <result property="loginId" column="LOGIN_ID"/>
+	      <result property="loginPw" column="LOGIN_PW"/>
+	      <result property="realName" column="REAL_NAME"/>
+	      <result property="employeeNo" column="EMPLOYEE_NO"/>
+	      <result property="loginTime" column="LOGIN_TIME"/>
+	      <result property="authRole" column="AUTH_ROLE"/>
+	    </association>
+	    <association property="userOrg" javaType="UserOrgsVo">
+	      <id property="userORgId" column="USER_ORG_ID"/>
+	      <result property="userId" column="USER_ID"/>
+	      <result property="departmentId" column="DEPARTMENT_ID"/>
+	      <result property="teamId" column="TEAM_ID"/>
+	    </association>
+	    <association property="userPro" javaType="UserProfilesVo">
+	      <id property="userProfilesId" column="USER_PROFILES_ID"/>
+	      <result property="userId" column="USER_ID"/>
+	      <result property="position" column="POSITION"/>
+	      <result property="officePhone" column="OFFICE_PHONE"/>
+	      <result property="mobilePhone" column="MOBILE_PHONE"/>
+	      <result property="address" column="ADDRESS"/>
+	      <result property="gender" column="GENDER"/>
+	      <result property="birthDate" column="BIRTH_DATE"/>
+	      <result property="hireDate" column="HIRE_DATE"/>
+	      <result property="status" column="STATUS"/>
+	      <result property="statusUpdateDate" column="STATUS_UPDATE_DATE"/>
+	    </association>
+	    <association property="department" javaType="DepartmentsVo">
+	      <id property="departmentId" column="DEPARTMENT_ID"/>
+	      <result property="departmentCode" column="DEPARTMENT_CODE"/>
+	      <result property="departmentName" column="DEPARTMENT_NAME"/>
+	      <result property="departmentDescription" column="DEPARTMENT_DESCRIPTION"/>
+	    </association>
+	    <association property="team" javaType="TeamsVo">
+	      <id property="teamId" column="TEAM_ID"/>
+	      <result property="teamCode" column="TEAM_CODE"/>
+	      <result property="teamName" column="TEAM_NAME"/>
+	      <result property="teamDescription" column="TEAM_DESCRIPTION"/>
+	      <result property="departmentId" column="DEPARTMENT_ID"/>
+    </association>
+  </resultMap>
+
+  <!-- 최종 페이로드 -->
+  <resultMap id="ProjectDetailResultMap" type="ProjectPayloadVo">
+    <association property="project" javaType="ProjectsVo" resultMap="ProjectResultMap"/>
+    <association property="userPayload" javaType="UserPayloadVo" resultMap="UserPayloadMap"/>
+    <collection property="memberList" ofType="ProjectMembersVo" resultMap="ProjectMemberResultMap"/>
+  </resultMap>
+	
+	
+
     <select id="selectProject" resultType="ProjectsVo">
        SELECT PROJECT_ID			as projectId		
 			, PROJECT_NAME          as projectName      
@@ -16,6 +151,51 @@
 		 FROM PROJECTS prj
 		 JOIN USERS u ON u.USER_ID = prj.CREATED_BY
 		 ORDER BY CREATED_AT,PROJECT_START_DATE,PROJECT_END_DATE
+    </select>
+    
+    <select id="findMembers"  resultMap="findMembers">
+	    SELECT u.REAL_NAME 			as realName
+			 , u.USER_ID			as userId
+			 , u.EMPLOYEE_NO        as employeeNo
+			 , up.`POSITION`        as position
+			 , d.DEPARTMENT_ID    	as departmentId
+			 , d.DEPARTMENT_NAME    as departmentName
+			 , t.TEAM_ID          	as teamId
+			 , t.TEAM_NAME          as teamName
+		FROM USERS u 
+		JOIN USER_PROFILES up 	on u.USER_ID 		= up.USER_ID 
+		JOIN USER_ORGS uo 		on u.USER_ID 		= uo.USER_ID
+		JOIN DEPARTMENTS d 		on d.DEPARTMENT_ID 	= uo.DEPARTMENT_ID 
+		JOIN TEAMS t 			on t.TEAM_ID  		= uo.TEAM_ID
+		WHERE STATUS = 01
+    </select>
+    
+    <select id="projectDetail" resultMap="ProjectDetailResultMap">
+	    SELECT pro.PROJECT_ID				as projectId
+			 , pro.PROJECT_NAME             as projectName
+			 , pro.PROJECT_START_DATE       as projectStartDate
+			 , pro.PROJECT_END_DATE         as projectEndDate
+			 , pro.PROJECT_STATUS           as projectStatus
+			 , pro.CREATED_BY               as createdBy
+			 , usr.REAL_NAME                as realName
+			 , prf.`POSITION`               as position
+			 , pro.CREATED_AT               as createdAt
+			 , pro.UPDATED_BY               as updatedBy
+			 , mem.USER_ID                  as userId
+			 , u.REAL_NAME                  as realName
+			 , mem.IS_PM                    as isPm
+			 , mem.DEPARTMENT_ID            as departmentId
+			 , d.DEPARTMENT_NAME            as departmentName
+			 , mem.TEAM_ID                  as teamId
+			 , t.TEAM_NAME                  as teamName
+		FROM PROJECTS pro
+		LEFT JOIN PROJECT_MEMBERS mem 	on mem.PROJECT_ID = pro.PROJECT_ID 
+		LEFT JOIN USERS usr 			on pro.CREATED_BY = usr.USER_ID 
+		LEFT JOIN USERS u 				on mem.USER_ID  = u.USER_ID
+		LEFT JOIN DEPARTMENTS d 		on mem.DEPARTMENT_ID = d.DEPARTMENT_ID
+		LEFT JOIN TEAMS t 				on mem.TEAM_ID = t.TEAM_ID
+		LEFT JOIN USER_PROFILES prf		on usr.USER_ID = prf.USER_ID
+		WHERE pro.PROJECT_ID = #{projectId}
     </select>
     
     <insert id="createProject" parameterType="ProjectsVo">
@@ -59,7 +239,7 @@
 			 , #{prjMem.departmentId}
 			 , #{prjMem.teamId}
 			 , #{prjMem.isPm}
-			 , #{prjMem.joinedAt}
+			 , NOW()
 			 , #{prjMem.endedAt}
 		)
     </insert>
