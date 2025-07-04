@@ -68,7 +68,17 @@ public class ProjectService {
 	 * @return: List<ProjectPayloadVo>
 	 */
 	public List<ProjectPayloadVo> projectDetail(String id) {
-		return projectMappers.findMembers(id);
+		return projectMappers.projectDetail(id);
+	}
+
+	/**
+	 * @설명:   프로젝트 삭제
+	 * @작성일: 2025. 7. 4.
+	 * @return: List<ProjectPayloadVo>
+	 */
+	public void deleteProject(String id) {
+		projectMappers.deleteProjectMem(id);
+		projectMappers.deleteProject(id);
 	}
 
 }

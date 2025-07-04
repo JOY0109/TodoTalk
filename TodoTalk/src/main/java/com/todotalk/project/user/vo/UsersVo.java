@@ -18,4 +18,7 @@ public class UsersVo{
 	private Integer employeeNo;         //사번
 	private LocalDateTime loginTime;    //로그인시간
 	private String authRole;            //권한
+
+	private String createdByName;       //작성자(예외)
+	
 }

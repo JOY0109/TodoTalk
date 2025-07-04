@@ -21,7 +21,11 @@ public interface ProjectMapper {
 
 	List<UserPayloadVo> findMembers();
 
-	List<ProjectPayloadVo> findMembers(@Param("projectId") String id);
+	List<ProjectPayloadVo> projectDetail(@Param("projectId") String id);
+
+	void deleteProjectMem(@Param("projectId") String id);
+
+	void deleteProject(@Param("projectId") String id);
 
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,5 +70,25 @@ public class ProjectController {
 	public List<ProjectPayloadVo> projectDetail(@PathVariable("id") String id){
 		return projectService.projectDetail(id);
 	}
+	
+	/**
+	 * @설명:   프로젝트 삭제
+	 * @작성일: 2025. 7. 4.
+	 * @return: List<ProjectPayloadVo>
+	 */
+	@DeleteMapping("/deleteProject/{id}")
+	@ResponseBody
+	public ResponseEntity<Void> deleteProject(@PathVariable("id") String id) {
+	    if (id == null || id.trim().isEmpty()) {
+	        return ResponseEntity.badRequest().build();  // 400 Bad Request
+	    }
+	    try {
+	        projectService.deleteProject(id);
+	        return ResponseEntity.ok().build();          // 200 OK
+	    } catch (Exception e) {
+	        return ResponseEntity.internalServerError().build(); // 500
+	    }
+	}
+
 
 }
